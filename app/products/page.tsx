@@ -1,7 +1,10 @@
-import Pagination from '@/app/ui/pagination';
+//import Pagination from '@/app/ui/pagination';
 // import { fetchLatestInvoices } from '@/lib/data';
 import {SearchBar} from '@/components/search/Search';
 import Table from '@/app/ui/table';
+import { Suspense } from 'react';
+import { CardsSkeleton } from '@/app/ui/skeletons';
+
  
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -22,9 +25,9 @@ export default async function Page(props: {
         <SearchBar placeholder="Search invoices..." />
         
       </div>
-      {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}
+      <Suspense key={query + currentPage} fallback={<CardsSkeleton />}>
         <Table query={query} currentPage={currentPage} />
-      {/* </Suspense> */}
+      </Suspense>
       <div className="mt-5 flex w-full justify-center">
         {/* <Pagination totalPages={totalPages} /> */}
       </div>

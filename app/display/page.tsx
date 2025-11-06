@@ -1,6 +1,6 @@
-//import {SearchBar} from '@/components/search/Search';
-
 import { SearchItems } from '@/components/ItemDisplay1';
+import { Suspense } from 'react';
+import { CardsSkeleton } from '../ui/skeletons';
  
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -26,7 +26,9 @@ export default async function Page(props: {
       {/* </Suspense> */}
       <div className="mt-5 flex w-full justify-center">
         {/* <Pagination totalPages={totalPages} /> */}
+        <Suspense fallback={<CardsSkeleton />}>
         <SearchItems query={query} currentPage={currentPage} />
+        </Suspense>
       </div>
     </div>
   );

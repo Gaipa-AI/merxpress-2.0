@@ -55,7 +55,7 @@ export const ItemCard=({product}:ProductProps)=>{
                         className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-pink-500"
                     >
                        
-                    <Heart className='absolute top-4 h-5 stroke-red-400 relative mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
+                    <Heart className='absolute top-0 h-5 stroke-red-400 relative mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
                     </Toggle>
                     
                     {/* {product.liked ? (

@@ -6,6 +6,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { SearchBar } from '@/components/search/Search'
+import { Suspense } from 'react'
 
 export const Header = ()=>{
     // const { user, remove } = useAuth();
@@ -22,7 +23,9 @@ export const Header = ()=>{
                 <div className="relative w-auto flex-grow max-w-md">
                     
                     {/* <SearchBar className="w-full max-w-md" /> */}
+                    <Suspense fallback={<div>Loading...</div>}>
                     <SearchBar placeholder="Search for products, brands and more..." />
+                    </Suspense>
                     
                 </div>
                 

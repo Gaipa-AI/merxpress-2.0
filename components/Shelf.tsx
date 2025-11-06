@@ -1,10 +1,6 @@
-//'use client'
-
-//import { useEffect, useState } from "react";
 import { ItemCard } from "@/components/ItemCard";
 import { Product } from "@/db/definitions";
 import { ProductData } from "@/db/definitions";
-//import axios from "axios";
 
 const products = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/products")
     .then((res) => res.json())

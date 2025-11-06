@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Footer } from "@/components/Footer";
 import { Mid } from "@/components/MidSection";
 import { Header } from "@/components/Header";
-//import SideNav from "@/components/SideNav";
+import SideNav from "@/components/sidebar/SideNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +46,7 @@ export default function RootLayout({
       ><StackProvider app={stackClientApp}><StackTheme>
         <Toaster richColors={true} />
         {/* <CartProvider> */}
+          <SideNav />
           <Header />
           {children}
           <Mid />

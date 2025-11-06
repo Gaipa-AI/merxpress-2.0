@@ -6,6 +6,8 @@ import { NavList } from "@/components/NavList";
 import Products  from "@/components/Shelf";
 import ChatWidget from "@/components/chat/ChatWidget";
 import SideNav from "@/components/SideNav";
+import { Suspense } from "react";
+import { CardsSkeleton } from "../ui/skeletons";
 //import { NavigationMenuDemo } from "@/components/NavMenu";
 
 
@@ -26,7 +28,9 @@ export default async function Market(props: {
             <ProductGallery/>
             {/* <FloatingChat/> */}
             <MerxLayout>   
-                 <Products query={query} currentPage={currentPage} />           
+                <Suspense fallback={<CardsSkeleton />}>
+                <Products query={query} currentPage={currentPage} /> 
+                </Suspense>          
                 <Items/>
                 <ItemDisplay/>
                 <SideNav/>
