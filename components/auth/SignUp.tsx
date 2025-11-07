@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-//import { toast } from "sonner"
+import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-//import { validateRegister } from "@/db/actions"
 import { createUser } from "@/auth"
 
 
@@ -20,22 +19,22 @@ export function SignUpForm({
   const [password, setPassword] = React.useState("");
   const [name, setName] = React.useState("");
   const [password_confirmation, setPasswordConfirmation] = React.useState("");
-  // This function can be used to handle the form submission
+  
   const router = useRouter();
    const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      //const data = await validateRegister(name, email, password,password_confirmation );
-
+  
       const data = await createUser(name, email, password);
+      toast.success("Account created successfully!");
     
       router.push("/marketplace");
-      //localStorage.setItem("user", data.user.name);
+      
       return data;
 
     } catch (error) {
       console.error(error);
-      // Optionally show error to user
+      toast.error("Failed to create account. Please try again.");
     }
   };
     

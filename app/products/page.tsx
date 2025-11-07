@@ -1,10 +1,6 @@
-//import Pagination from '@/app/ui/pagination';
-// import { fetchLatestInvoices } from '@/lib/data';
-import {SearchBar} from '@/components/search/Search';
-import Table from '@/app/ui/table';
+import { SearchItems } from '@/components/ItemDisplay1';
 import { Suspense } from 'react';
 import { CardsSkeleton } from '@/app/ui/skeletons';
-
  
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -19,17 +15,20 @@ export default async function Page(props: {
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
-        <h1 className={`text-2xl`}>Invoices</h1>
+        <h1 className={`text-2xl`}>Marketplace</h1>
       </div>
       <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <SearchBar placeholder="Search invoices..." />
+        {/* <SearchBar placeholder="Search invoices..." /> */}
         
       </div>
-      <Suspense key={query + currentPage} fallback={<CardsSkeleton />}>
-        <Table query={query} currentPage={currentPage} />
-      </Suspense>
+      {/* <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}> */}
+        {/* <Table query={query} currentPage={currentPage} /> */}
+      {/* </Suspense> */}
       <div className="mt-5 flex w-full justify-center">
         {/* <Pagination totalPages={totalPages} /> */}
+        <Suspense fallback={<CardsSkeleton />}>
+        <SearchItems query={query} currentPage={currentPage} />
+        </Suspense>
       </div>
     </div>
   );

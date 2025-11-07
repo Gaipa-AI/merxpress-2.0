@@ -5,9 +5,10 @@ import { ItemDisplay } from "@/components/Display";
 import { NavList } from "@/components/NavList";
 import Products  from "@/components/Shelf";
 import ChatWidget from "@/components/chat/ChatWidget";
-import SideNav from "@/components/SideNav";
+//import SideNav from "@/components/SideNav";
 import { Suspense } from "react";
 import { CardsSkeleton } from "../ui/skeletons";
+import SideNav from "@/components/SideNav";
 //import { NavigationMenuDemo } from "@/components/NavMenu";
 
 

@@ -22,9 +22,6 @@ export async function SearchItems({
     currentPage: number;
 }) {
 
-//    const filteredProducts = products.filter((product) =>
-//      product.title.toLowerCase().includes(query.toLowerCase())
-//    );
   const products= await fetchFilteredProducts(query, currentPage);
 
 
@@ -32,11 +29,11 @@ export async function SearchItems({
   
   return (
     
-    <div className="flex flex-col mt-4 w-full max-md:mt-10 max-md:max-w-full">
+    <div className="flex flex-col m-6 w-full max-md:mt-10 max-md:max-w-full">
       <h1 className="text-2xl font-bold mb-6 text-slate-900 max-md:max-w-full">
         Promotions
       </h1>
-      <div className="flex flex-col mt-2">
+      <div className="flex w-1/4 flex-col mt-2">
         
         <div className="flex flex-row mb-4">
           {products.slice(0, 4).map((product) => (
@@ -45,7 +42,7 @@ export async function SearchItems({
         </div>
         
       </div>
-      <div className="flex flex-col mt-2">
+      <div className="flex w-1/4 flex-col mt-2">
         <div className="flex flex-row mb-4">
           {products.slice(4).map((product) => (
             <ItemCard key={product.id} product={product} />

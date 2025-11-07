@@ -6,17 +6,22 @@ import { z } from 'zod';
 import type { User } from '@/db/definitions';
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
+//import { neon } from "@neondatabase/serverless";
+
+//const sql = neon(`${process.env.DATABASE_URL}`);
  
-const sql = postgres(process.env.DATABASE_URL!, { ssl: 'require' });
+const sql = postgres(process.env.DATABASE_URL!);
  
 async function getUser(email: string): Promise<User | undefined> {
   try {
-    //const user = await sql<User[]>`SELECT * FROM neon_auth.users_sync WHERE email=${email}`;
-    const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`;
+    //const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`;
+    const user = await sql<User[]>`
+      SELECT * FROM users WHERE email=${email}
+    `;
     return user[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
-    throw new Error('Failed to fetch user.');
+    throw new Error('User doesn`t exist.');
   }
 }
 
@@ -28,11 +33,6 @@ export async function createUser(name: string, email: string, password: string):
       VALUES (${name}, ${email}, ${hashedPassword})
       RETURNING *;
     `;
-    // const result = await sql<User[]>`
-    //   INSERT INTO neon_auth.users_sync (email)
-    //   VALUES (${email})
-    //   RETURNING *;
-    // `;
     return result[0];
   } catch (error) {
     console.error('Failed to create user:', error);

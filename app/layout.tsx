@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { StackProvider, StackTheme } from "@stackframe/stack";
-import { stackClientApp } from "../stack/client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
@@ -43,7 +41,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      ><StackProvider app={stackClientApp}><StackTheme>
+      >
         <Toaster richColors={true} />
         {/* <CartProvider> */}
           <SideNav />
@@ -54,7 +52,7 @@ export default function RootLayout({
           {/* <FloatingChat /> */}
         {/* </CartProvider> */}
         <Footer />
-      </StackTheme></StackProvider></body>
+     </body>
     </html>
   );
 }
