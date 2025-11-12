@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
-import GoogleProvider from "next-auth/providers/google";
- 
+
 export const authConfig = {
   pages: {
     signIn: '/login',
@@ -28,24 +27,28 @@ export const authConfig = {
       // 4️⃣ Allow access to other routes
       return true;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.role = (user as any).role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.id as string;
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
+        (session.user as any).role = token.role;
+      }
+      return session;
+    },
   },
   providers: [
-    GoogleProvider({
-          profile(profile) {
-            console.log("Profile Google: ", profile);
-    
-            let userRole = "Google User";
-            return {
-              ...profile,
-              id: profile.sub,
-              role: userRole,
-            };
-          },
-          clientId: process.env.GOOGLE_ID,
-          clientSecret: process.env.GOOGLE_Secret,
-        })
    
   ], // Add providers with an empty array for now
   
-
+  secret: process.env.NEXTAUTH_SECRET,
 } satisfies NextAuthConfig;

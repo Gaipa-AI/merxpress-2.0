@@ -1,27 +1,41 @@
 'use server'
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google";
+import Auth0Provider from "next-auth/providers/auth0";
 import { authConfig } from './auth.config';
 import { z } from 'zod';
 import type { User } from '@/db/definitions';
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
-//import { neon } from "@neondatabase/serverless";
 
 //const sql = neon(`${process.env.DATABASE_URL}`);
  
 const sql = postgres(process.env.DATABASE_URL!);
  
-async function getUser(email: string): Promise<User | undefined> {
+export async function getUser(email: string): Promise<User | undefined> {
   try {
-    //const user = await sql<User[]>`SELECT * FROM users WHERE email=${email}`;
+    //const user = await sql<User[]>`SELECT * FROM neon_auth.users_sync WHERE email=${email}`;
     const user = await sql<User[]>`
       SELECT * FROM users WHERE email=${email}
     `;
+    //console.log('Fetched user:', user);
     return user[0];
   } catch (error) {
     console.error('Failed to fetch user:', error);
     throw new Error('User doesn`t exist.');
+  }
+}
+
+async function getUserById(id: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User[]>`
+      SELECT * FROM users WHERE id=${id}
+    `;
+    return user[0];
+  } catch (error) {
+    console.error('Failed to fetch user by ID:', error);
+    return undefined;
   }
 }
 
@@ -55,11 +69,37 @@ export const { auth, signIn, signOut } = NextAuth({
           if (!user) return null;
           const passwordsMatch = await bcrypt.compare(password, user.password);
  
-          if (passwordsMatch) return user;
+          if (passwordsMatch) {
+            // Return user data without password for security
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+            };
+          }
         }
  
         return null;
       },
     }),
+     GoogleProvider({
+               profile(profile) {
+                 console.log("Profile Google: ", profile);
+         
+                 let userRole = "Google User";
+                 return {
+                   ...profile,
+                   id: profile.sub,
+                   role: userRole,
+                 };
+               },
+               clientId: process.env.GOOGLE_ID,
+               clientSecret: process.env.GOOGLE_Secret,
+             }),
+      Auth0Provider({
+           clientId: process.env.AUTH0_CLIENT_ID,
+           clientSecret: process.env.AUTH0_CLIENT_SECRET,
+           issuer: 'dev-qy2tyiw460housyx.us.auth0.com',
+      }),
   ],
 });

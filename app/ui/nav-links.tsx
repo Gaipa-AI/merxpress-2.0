@@ -1,5 +1,6 @@
 
-import {Dock,House,Users} from 'lucide-react'
+import { Dock, House, Users} from 'lucide-react'
+import { auth } from '@/auth';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -7,17 +8,24 @@ const links = [
   { name: 'Home', href: '/home', icon: House },
   {
     name: 'Login',
-    href: '/handler/login',
+    href: '/login',
     icon: Dock,
   },
-  { name: 'Account', href: '/', icon: Users },
+  { name: 'Account', href: '/dashboard', icon: Users },
 ];
 
-export default function NavLinks() {
+export default async function NavLinks() {
+  const session = await auth();
+  
   return (
     <>
       {links.map((link) => {
         const LinkIcon = link.icon;
+        // Hide login link if user is logged in
+        if (link.name === 'Login' && session?.user) {
+          return null;
+        }
+        
         return (
           <a
             key={link.name}
@@ -29,6 +37,14 @@ export default function NavLinks() {
           </a>
         );
       })}
+      
+      {session?.user && (
+        <div className="mt-4 rounded-md bg-blue-50 p-3">
+          <p className="text-xs font-semibold text-gray-600">Logged in as:</p>
+          <p className="text-sm font-medium text-gray-900 truncate">{session.user.name}</p>
+          <p className="text-xs text-gray-600 truncate">{session.user.email}</p>
+        </div>
+      )}
     </>
   );
 }

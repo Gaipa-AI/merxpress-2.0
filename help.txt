@@ -1,0 +1,26 @@
+1. Force Re-authentication (Quickest Fix) 
+Google often remembers user consent and session information. The simplest way to bypass this cache and force the use of the new client is to add the prompt=consent parameter to your authorization request URL: 
+Modify your login URL to include &prompt=consent (or ?prompt=consent if it's the first parameter).
+This forces the user to re-select their Google account and grant permissions, which should in turn use the new client ID defined in your code.
+Once this works, subsequent logins without the prompt=consent parameter should function correctly with the new client. 
+
+2. Verify Your Application's Configuration
+The most likely cause is that your application's code is still referencing the old client ID or client secret.
+Check your source code/configuration files and ensure the new Client ID and new Client Secret are updated everywhere they are used.
+If you downloaded a JSON file with credentials from the Google Cloud Console, make sure you've updated the file you're currently using in your application's backend or frontend. 
+
+3. Clear Browser Cache and Cookies 
+Your browser might have cached the old consent screen or session data. 
+Clear your browser's cache and cookies, specifically those related to your application's domain and accounts.google.com.
+Alternatively, try logging in using an incognito/private browsing window or a completely different browser that has no prior session data for your application. 
+
+4. Check Authorized Redirect URIs in Google Cloud Console 
+Ensure that the Authorized Redirect URIs configured in the Google Cloud Console for your new OAuth client match exactly what your application is sending in the authentication request. A mismatch will cause an error or unexpected behavior. 
+Go to APIs & Services > Credentials in the Google Cloud Console.
+Click on your new OAuth 2.0 client ID.
+Verify that the redirect URIs listed are correct and complete (including http:// or https:// and any specific paths). 
+
+5. Verify the Login Flow is Initiated Correctly
+Double-check the URL your application generates to start the Google login process. It should explicitly contain the new client_id as a query parameter. 
+If you are using a third-party library or framework for OAuth (like Passport.js, Firebase, etc.), ensure that you've updated the configuration within that library's settings to use the new credentials. 
+If you've tried these steps and are still running into issues, want me to help you check your current OAuth login URL structure?

@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { CardsSkeleton } from "../ui/skeletons";
 import SideNav from "@/components/SideNav";
 //import { NavigationMenuDemo } from "@/components/NavMenu";
+import DashboardPage from "@/components/DASHBOARD_EXAMPLE";
 
 
 export default async function Market(props: {
@@ -35,6 +36,7 @@ export default async function Market(props: {
                 <Items/>
                 <ItemDisplay/>
                 <SideNav/>
+                <DashboardPage/>
                 {/* <CartPage/> */}
                 <ChatWidget/>
             </MerxLayout>

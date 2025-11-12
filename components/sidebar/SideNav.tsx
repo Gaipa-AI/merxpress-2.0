@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Menu, X, Home, Store, Package, LogIn, LogOut, User } from 'lucide-react'
 import Link from 'next/link'
-
+import { useSession } from '@/hooks/useSession';
 type AccountType = 'Buyer' | 'Seller'
 
 export interface SideNavProps {
@@ -13,7 +13,8 @@ export interface SideNavProps {
 export default function SideNav({ initialOpen = false }: SideNavProps) {
 	const [open, setOpen] = useState(initialOpen)
 	const [accountType, setAccountType] = useState<AccountType>('Buyer')
-
+	const { session, loading } = useSession();
+    //console.log('Session in SideNav:', session?.user);
 	useEffect(() => {
 		const saved = typeof window !== 'undefined' ? window.localStorage.getItem('merx-account-type') : null
 		if (saved === 'Buyer' || saved === 'Seller') setAccountType(saved)
@@ -50,6 +51,12 @@ export default function SideNav({ initialOpen = false }: SideNavProps) {
 						<X className="h-5 w-5" />
 					</button>
 				</div>
+				{/* Navigation Links */}
+				{session && !loading && (
+					<div className="px-4 py-3 border-b border-gray-700/30">
+						<p className="text-sm font-medium text-gray-300">Hello, {session.user?.name || 'User not logged in'}!</p>
+					</div>
+				)}
 
 				<nav className="px-3 py-4 space-y-1">
 					<SideNavLink href="/" icon={<Home className="h-5 w-5" />}>Home</SideNavLink>

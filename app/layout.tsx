@@ -19,7 +19,23 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Merxpress",
+  //title: { default: 'My Site', template: '%s | My Site' },
   description: "A modern e-commerce platform built with Next.js",
+  keywords: [
+    "e-commerce",
+    "next.js",
+    "react",
+    "shopping",
+    "online store",
+    "merxpress",
+  ],
+  openGraph: {
+    title: 'Merxpress',
+    description: 'Your one-stop e-commerce platform built with Next.js',
+    url: 'https://merxpressv-2-0.vercel.app/',
+    siteName: 'Merxpress',
+    images: [{ url: 'https://res.cloudinary.com/dbfydxolq/image/upload/v1762521112/Merxpress-Logo_xqi1nc.png' }]
+  },
 };
 
 export default function RootLayout({
