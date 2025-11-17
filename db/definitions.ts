@@ -10,7 +10,7 @@ export type User = {
 export type Product = {
     id: string;
     price: number;
-    originalprice?: number;
+    originalPrice?: number;
     discount?: number;
     title: string;
     description: string;
