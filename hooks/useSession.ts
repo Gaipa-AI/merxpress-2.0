@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import type { Session } from 'next-auth';
-
+//import { auth } from '@/auth';
 /**
  * Hook to fetch and manage session data on the client side
  * Returns the current session, loading state, and any errors
@@ -16,6 +16,7 @@ export function useSession() {
     async function getSession() {
       try {
         const response = await fetch('/api/auth/session');
+
         if (!response.ok) {
           throw new Error('Failed to fetch session');
         }

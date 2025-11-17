@@ -1,6 +1,7 @@
 import { ItemCard } from "@/components/ItemCard";
 import { Product } from "@/db/definitions";
 import { ProductData } from "@/db/definitions";
+//import { fetchFilteredItems } from "@/db/actions";
 
 const products = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/products")
     .then((res) => res.json())
@@ -32,6 +33,7 @@ export async function Products({
 }) {
   
   const products= await fetchFilteredProducts(query, currentPage);
+  //const products: ProductData[] = await fetchFilteredItems(query, currentPage);
 
   return (
     <div className="flex flex-col mt-4 w-full">

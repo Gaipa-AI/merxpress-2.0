@@ -10,7 +10,7 @@ export type User = {
 export type Product = {
     id: string;
     price: number;
-    originalPrice?: number;
+    originalprice?: number;
     discount?: number;
     title: string;
     description: string;
@@ -58,7 +58,7 @@ export interface ProductData {
     product: Product;
     quantity: number;
   };
-  
+
   export type Cart = {
     items: CartItem[];
   };
@@ -122,7 +122,7 @@ export interface ProductData {
               {
                 product: action.product,
                 quantity: 1,
-                id:1,
+                id:  1,
               },
             ],
           },
@@ -268,4 +268,12 @@ export type InvoiceForm = {
   customer_id: string;
   amount: number;
   status: 'pending' | 'paid';
+};
+
+
+export type ImageData = {
+  id: number;
+  name: string;
+  image_url: string;
+  images: JSON;
 };

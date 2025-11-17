@@ -97,6 +97,7 @@ export const { auth, signIn, signOut } = NextAuth({
                clientSecret: process.env.GOOGLE_Secret,
              }),
       Auth0Provider({
+           
            clientId: process.env.AUTH0_CLIENT_ID,
            clientSecret: process.env.AUTH0_CLIENT_SECRET,
            issuer: 'dev-qy2tyiw460housyx.us.auth0.com',

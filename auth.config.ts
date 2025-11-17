@@ -9,7 +9,7 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user;
       const isOnCart = nextUrl.pathname.startsWith('/cart');
       const isOnLoginPage = nextUrl.pathname.startsWith('/login');
-      //const isOnMarketplace = nextUrl.pathname.startsWith('/marketplace');
+      const isOnMarketplace = nextUrl.pathname.startsWith('/marketplace');
       
       // 1️⃣ Prevent redirect loop
       if (isOnLoginPage) return true;
@@ -17,6 +17,9 @@ export const authConfig = {
       // 2️⃣ Protect /cart
       if (isOnCart && !isLoggedIn) {
         return false; // Redirects to /login
+      }
+      if (isOnMarketplace && !isLoggedIn) {
+        return true; // Allow access to /marketplace
       }
 
       // 3️⃣ Redirect authenticated users from login to marketplace

@@ -1,7 +1,11 @@
 import { SearchItems } from '@/components/ItemDisplay1';
 import { Suspense } from 'react';
 import { CardsSkeleton } from '@/app/ui/skeletons';
+import { CartProvider } from '@/components/cart/CartContext';
+import {CartPage} from '@/components/cart/Cart';
+import { MerxLayout } from '@/components/merxDash';
 //import UserProfile from '@/components/UserProfile';
+import Products from '@/components/Shelf';
  
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -27,7 +31,7 @@ export default async function Page(props: {
         {/* <SearchBar placeholder="Search invoices..." /> */}
         {/* <UserProfile /> */}
       </div>
-      
+      <CartProvider>
       <div className="mt-5 flex w-full justify-center">
         {/* <Pagination totalPages={totalPages} /> */}
         <Suspense fallback={<CardsSkeleton />}>
@@ -35,6 +39,14 @@ export default async function Page(props: {
         </Suspense>
 
       </div>
+      
+      <div className="app">
+        <MerxLayout>
+        <Products query={query} currentPage={currentPage} />
+        <CartPage />
+        </MerxLayout>
+      </div>
+      </CartProvider>
       
     </div>
   );

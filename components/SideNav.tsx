@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import NavLinks from '@/app/ui/nav-links';
 import { PowerIcon } from 'lucide-react';
 import { signOut } from '@/auth';

@@ -1,12 +1,20 @@
 "use server";
 import { neon } from "@neondatabase/serverless";
-import { Product } from './definitions';
+import { Product, ImageData } from '@/db/definitions';
 import { Order } from './definitions';
 import ClientStorage from '@/lib/clientStorage';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
+import postgres from "postgres";
+
 
 const db_key =process.env.DATABASE_URL;
+const ITEMS_PER_PAGE = 6;
+//const sql = neon(db_key||'')
+export const sql = postgres(db_key || '', {
+  ssl: { rejectUnauthorized: false },
+});
+
 
 export async function authenticate(
   prevState: string | undefined,
@@ -24,102 +32,6 @@ export async function authenticate(
       }
     }
     throw error;
-  }
-}
-
-
-const ITEMS_PER_PAGE = 6;
-export async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
-  
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/register`, {
-      method: "POST",
-      mode: "cors", // Ensure CORS is enabled
-      headers: {
-        "Content-Type": "application/json",
-       
-      },
-      body: JSON.stringify({name, email, password, password_confirmation}),
-
-    });
-    
-    //console.log(JSON.stringify({ name, email, password, password_confirmation }));
-    //console.log(response);
-    // Check if the response is ok (status in the range 200-299)
-    if(response){
-    console.log("Registration successful");
-    // Assuming the response contains a token and user information
-    const data = await response.json();
-    //console.log("Register response: ", data);
-
-    return data;
-    }
-  } catch (error) {
-    // Handle network or parsing errors
-    console.error("Registration error:", error);
-    throw error;
-  }
-}
-
-export async function validateLogin(email: string, password: string) {
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-
-      },
-      body: JSON.stringify({ email, password }),
-
-    });
-    //console.log(JSON.stringify({ email, password }));
-    //console.log(response);
-    // Check if the response is ok (status in the range 200-299)
-    if(response.ok){
-    //console.log("Login successful");
-    // Assuming the response contains a token and user information
-    const data = await response.json();
-    //console.log("Login response: ", data);
-    
-    return data;
-    }
-
-    if (!response.ok) {
-      // Handle non-2xx HTTP responses
-      const errorData = await response.json();
-      //toast.error("Login failed: Wrong email or password");
-      throw new Error(errorData.message || "Login failed");
-      
-    }
-
-    // Parse and return the response data (e.g., token, user info)
-    //return await response.json();
-    
-  } catch (error) {
-    // Handle network or parsing errors
-    throw error;
-  }
-}
-
-export async function logout() {
-  //'use server'
-  try {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/logout`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Logout failed');
-    }
-    // Clear user session or local storage using the safe helper function
-    ClientStorage.removeItem('user');
-    // Optionally, you can redirect or update the UI after logout
-   console.log('Logout successful');
-  } catch (error) {
-    console.error('Logout error:', error);
   }
 }
 
@@ -148,6 +60,85 @@ export async function searchProducts(
     throw error;
   }
 
+}
+
+export async function fetchProducts()
+  {
+   
+  try{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/products`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
+    const data = await response.json();
+    return data;
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products.');
+  }
+
+}
+
+export async function getProducts(){
+  try{
+    const products = await sql<Product[]>`
+      SELECT * FROM products
+      ORDER BY id ASC
+    `;
+    return products;
+  }catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products.');
+  
+}
+}
+
+
+
+export async function fetchFilteredItems(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const products = await sql<Product[]>`
+      SELECT * 
+      FROM products
+      WHERE
+        products.title ILIKE ${`%${query}%`} OR
+        products.description ILIKE ${`%${query}%`} OR
+        products.price::text ILIKE ${`%${query}%`} OR
+        products.originalprice::text ILIKE ${`%${query}%`} OR
+        products.imageurl ILIKE ${`%${query}%`}
+      ORDER BY products.id ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return products;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch products.');
+  }
+}
+
+export async function fetchImages() {
+    try{
+    const images = await sql<ImageData[]>`
+      SELECT *
+      FROM "Images"
+    `;
+    return images;
+    }
+    catch(error){
+      console.error('Database Error:', error);
+      throw new Error('Failed to fetch images.');
+    }
 }
 
 export async function getData() {

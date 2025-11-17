@@ -8,7 +8,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ProductData } from "@/db/definitions";
+import { Product, ProductData } from "@/db/definitions";
 import Autoplay from "embla-carousel-autoplay";
 
 const products: ProductData[] = [
@@ -33,7 +33,7 @@ const products: ProductData[] = [
         price: 139.95,
         title: "STAUB Cast Iron Dutch Oven 0.5-qt Round Cocotte",
         description: "Made in France, Serves 1, Matte Black",
-        imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/e2f9cf814b41318de69e8b298333c0b0099165989a7afd53bfe20a719c4fb11d?apiKey=2c0ef7d7caa24d8d8c04d3962010fc58&"
+        imageUrl: "products/dutch-oven.png"
       },
       {
         id: "4",

@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { Mid } from "@/components/MidSection";
 import { Header } from "@/components/Header";
 import SideNav from "@/components/sidebar/SideNav";
+import { CartProvider } from "@/components/cart/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,14 +60,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster richColors={true} />
-        {/* <CartProvider> */}
-          <SideNav />
+        <SideNav />
+        <CartProvider>
           <Header />
+        </CartProvider>
           {children}
           <Mid />
           
           {/* <FloatingChat /> */}
-        {/* </CartProvider> */}
+        
         <Footer />
      </body>
     </html>

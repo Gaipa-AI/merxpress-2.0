@@ -3,7 +3,8 @@ import * as React from "react";
 import { Heart, CirclePlus } from "lucide-react";
 import { ProductCardProps } from "@/db/definitions";
 import { Toggle } from "@/components/ui/toggle"
-//import { useCart } from "@/components/cart/CartContext";
+import { useCart } from "@/components/cart/CartContext";
+import { Product } from "@/db/definitions";
 import {
     Tooltip,
     TooltipContent,
@@ -18,19 +19,19 @@ interface ProductProps {
   }
 
 
-export const ItemCard=({product}:ProductProps)=>{
+export const ItemCard =({product}:ProductProps)=>{
     const [likeCount, setLikeCount] = React.useState(0); // State to hold the like count
     const [showAlert, setShowAlert] = React.useState(false); // State to control alert visibility
 
-    // const { dispatch } = useCart();
+    const { dispatch } = useCart();
         
-    //       const addToCart = () => {
-    //         dispatch({
-    //           type: "ADD_ITEM",
-    //           payload: { ...product, quantity: 1 },
-    //         });
-    //         toast.success('Item added to cart',{position:'top-right',duration:2000,style:{backgroundColor:'white',color:'green',border:'2px solid white',borderRadius:'10px', boxShadow:'0 0 5px '}});
-    //       };
+          const addToCart = () => {
+            dispatch({
+              type: "ADD_ITEM",
+              payload: { ...product, quantity: 1 },
+            });
+            toast.success('Item added to cart',{position:'top-right',duration:2000,style:{backgroundColor:'white',color:'green',border:'2px solid white',borderRadius:'10px', boxShadow:'0 0 5px '}});
+          };
 
     const handleLike = () => {
         setLikeCount(likeCount + 1);
@@ -46,17 +47,17 @@ export const ItemCard=({product}:ProductProps)=>{
             <div className="bg-white p-4 rounded-lg shadow-md flex flex-col mr-4 relative hover:shadow-lg hover:translate-y-[-2%] transition-transform duration-300 ease-in-out" >
                 
                     <img 
-                    src={product.imageUrl}
+                    src={`${product.imageUrl}`}
                     alt={product.title} 
                     className="w-full min-w-62 object-contain mb-4"/>
-                    <Toggle
+                    {/* <Toggle
                         aria-label="Toggle Like"
                         size="sm"
                         className="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-red-500 data-[state=on]:*:[svg]:stroke-pink-500"
-                    >
+                    > */}
                        
-                    <Heart className='absolute top-0 h-5 stroke-red-400 relative mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
-                    </Toggle>
+                    <Heart className='absolute top-4 h-5 stroke-red-400 mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
+                    {/* </Toggle> */}
                     
                     {/* {product.liked ? (
                         <span className="absolute top-4 right-0 text-red-500 font-bold">{likeCount}</span>
@@ -94,11 +95,11 @@ export const ItemCard=({product}:ProductProps)=>{
                         <TooltipTrigger asChild>
                             
                             <CirclePlus className=' h-6 stroke-gray-800 mr-2 absolute bottom-4 right-0 hover:fill-green-700 hover:stroke-white' strokeWidth={1.0} fill='none' href='null' role="button"
-                                //onClick={addToCart}
+                                onClick={addToCart}
                                 
                                 />
                         </TooltipTrigger>
-                        <TooltipContent sideOffset={5} className="transform -translate-x-1/2 bg-gray-500/90 text-white p-4 rounded shadow-sm opacity-100 p-2 rounded-lg primary">
+                        <TooltipContent sideOffset={5} className="transform -translate-x-1/2 bg-gray-500/90 text-white p-4 rounded shadow-sm opacity-100 p-2 rounded-lg secondary" >
                             Add this item to your cart
                         </TooltipContent>
                     </Tooltip>

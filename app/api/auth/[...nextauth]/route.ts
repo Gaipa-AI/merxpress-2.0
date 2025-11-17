@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import { authConfig } from "@/auth.config"
 
+
 const handler = NextAuth(authConfig)
 
 // ✅ Explicitly assert correct handler type for Next.js 15/16
