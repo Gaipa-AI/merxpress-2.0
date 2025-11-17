@@ -190,7 +190,7 @@ export async function Catalog ({
                                 ))}
                         </div>
                         <div className="flex flex-row mb-4">
-                            {products.slice(4,7).map((product:Product) => (
+                            {products.slice(4,8).map((product:Product) => (
                             
                             <ItemCard key={product.id} product={product}  />
                             ))}

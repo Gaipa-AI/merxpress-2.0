@@ -113,9 +113,8 @@ export async function fetchFilteredItems(
       WHERE
         products.title ILIKE ${`%${query}%`} OR
         products.description ILIKE ${`%${query}%`} OR
-        products.price::text ILIKE ${`%${query}%`} OR
-        products.originalprice::text ILIKE ${`%${query}%`} OR
-        products.imageurl ILIKE ${`%${query}%`}
+        products.price::text ILIKE ${`%${query}%`} 
+        
       ORDER BY products.id ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
