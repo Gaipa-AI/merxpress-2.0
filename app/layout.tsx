@@ -59,17 +59,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Toaster richColors={true} />
-        <SideNav />
         <CartProvider>
-          <Header />
-        </CartProvider>
+        <Toaster richColors={true} />
+        <SideNav />       
+          <Header />       
           {children}
-          <Mid />
-          
+          <Mid />        
           {/* <FloatingChat /> */}
-        
         <Footer />
+        </CartProvider>
      </body>
     </html>
   );

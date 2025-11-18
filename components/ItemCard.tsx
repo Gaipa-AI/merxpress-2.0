@@ -2,9 +2,8 @@
 import * as React from "react";
 import { Heart, CirclePlus } from "lucide-react";
 import { ProductCardProps } from "@/db/definitions";
-import { Toggle } from "@/components/ui/toggle"
+//import { Toggle } from "@/components/ui/toggle"
 import { useCart } from "@/components/cart/CartContext";
-import { Product } from "@/db/definitions";
 import {
     Tooltip,
     TooltipContent,
@@ -14,7 +13,6 @@ import {
 import { toast } from 'sonner';
 
 interface ProductProps {
-    //product: CartItem;
       product: ProductCardProps;
   }
 

@@ -1,5 +1,3 @@
-
-import React from "react";
 import { ImageGallery } from "@/components/Image";
 
 export default function Page() {

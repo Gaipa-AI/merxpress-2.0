@@ -84,8 +84,8 @@ export default function SideNav({ initialOpen = false }: SideNavProps) {
 						We route to Stack's built-in handler pages. These work with the StackProvider already mounted in app/layout.
 					*/}
 					<SideNavLink href="/login" icon={<LogIn className="h-5 w-5" />}>Login</SideNavLink>
-					<SideNavLink href="/handler/account" icon={<User className="h-5 w-5" />}>Account</SideNavLink>
-					<SideNavLink href="/logout" icon={<LogOut className="h-5 w-5" />}>Logout</SideNavLink>
+					<SideNavLink href="/dashboard" icon={<User className="h-5 w-5" />}>Account</SideNavLink>
+					<SideNavLink href="/" icon={<LogOut className="h-5 w-5" />}>Logout</SideNavLink>
 				</div>
 				
 			</div>

@@ -1,11 +1,8 @@
-//'use client'
-//import { useState } from "react";
 import { LayoutList, LayoutGrid } from "lucide-react";
 import { fetchFilteredItems } from "@/db/actions";
 import { ItemCard } from "@/components/ItemCard";
-import { Product, ProductCardProps } from "@/db/definitions";
-import { fetchProducts } from "@/db/actions";
-import { ProductData } from "@/db/definitions";
+import { Product} from "@/db/definitions";
+
 
 // const products = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/products")
 //     .then((res) => res.json())

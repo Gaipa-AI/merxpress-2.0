@@ -2,7 +2,7 @@
 import { neon } from "@neondatabase/serverless";
 import { Product, ImageData } from '@/db/definitions';
 import { Order } from './definitions';
-import ClientStorage from '@/lib/clientStorage';
+//import ClientStorage from '@/lib/clientStorage';
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 import postgres from "postgres";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { ItemCard } from "./ItemCard";
 import { ProductData } from "@/db/definitions";
 import { fetchProducts } from "@/db/actions";
-import { fetchFilteredItems } from "@/db/actions";
+//import { fetchFilteredItems } from "@/db/actions";
 
 export const Items: React.FC = async () => {
 

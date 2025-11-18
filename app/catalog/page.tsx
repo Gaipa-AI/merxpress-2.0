@@ -21,8 +21,8 @@ export default async function Sell(props: {
         <div> 
             <NavList/>
             <MerxLayout>
-            <Pagination totalPages={totalPages} />
-            <Catalog query={query} currentPage={currentPage} /> 
+            <Catalog query={query} currentPage={currentPage} />
+             <Pagination totalPages={totalPages} />
             </MerxLayout>
         </div>
     )

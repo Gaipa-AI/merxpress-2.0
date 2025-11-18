@@ -8,7 +8,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Product, ProductData } from "@/db/definitions";
+import { ProductData } from "@/db/definitions";
 import Autoplay from "embla-carousel-autoplay";
 
 const products: ProductData[] = [
