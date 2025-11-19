@@ -52,7 +52,7 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Profile",
       url: "#",
       icon: SquareTerminal,
       isActive: true,
@@ -72,8 +72,8 @@ const data = {
       ],
     },
     {
-      title: "Models",
-      url: "#",
+      title: "My Cart",
+      url: "/cart",
       icon: Bot,
       items: [
         {
@@ -81,7 +81,7 @@ const data = {
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Liked Items",
           url: "#",
         },
         {

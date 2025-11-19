@@ -11,7 +11,8 @@ import { CardsSkeleton } from "../ui/skeletons";
 import SideNav from "@/components/SideNav";
 //import { NavigationMenuDemo } from "@/components/NavMenu";
 import DashboardPage from "@/components/DASHBOARD_EXAMPLE";
-//import {CartPage} from "@/components/cart/Cart";
+import {CartPage} from "@/components/cart/Cart";
+//import { CartProvider } from "@/components/cart/CartContext";
 
 
 export default async function Market(props: {
@@ -25,22 +26,26 @@ export default async function Market(props: {
     const currentPage = Number(searchParams?.page) || 1;
     return(
         <div> 
-            
+           
             <NavList/>
             {/* <NavigationMenuDemo/> */}
             <ProductGallery/>
             {/* <FloatingChat/> */}
             <MerxLayout>   
-                <Suspense fallback={<CardsSkeleton />}>
-                <Products query={query} currentPage={currentPage} /> 
-                </Suspense>          
+                         
                 <Items/>
                 <ItemDisplay/>
+                <Suspense fallback={<CardsSkeleton />}>
+                <Products query={query} currentPage={currentPage} /> 
+                </Suspense> 
                 <SideNav/>
                 <DashboardPage/>
-                
+                <div className="hidden">
+                 <CartPage/> 
+                </div>
                 <ChatWidget/>
             </MerxLayout>
+           
            
         </div>
     )

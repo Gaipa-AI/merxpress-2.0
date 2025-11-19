@@ -8,6 +8,7 @@ import { z } from 'zod';
 import type { User } from '@/db/definitions';
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
+import GitHub from 'next-auth/providers/github';
 
 //const sql = neon(`${process.env.DATABASE_URL}`);
  
@@ -94,13 +95,17 @@ export const { auth, signIn, signOut } = NextAuth({
                  };
                },
                clientId: process.env.GOOGLE_ID,
-               clientSecret: process.env.GOOGLE_Secret,
+               clientSecret: process.env.GOOGLE_SECRET,
              }),
       Auth0Provider({
            
            clientId: process.env.AUTH0_CLIENT_ID,
            clientSecret: process.env.AUTH0_CLIENT_SECRET,
-           issuer: 'dev-qy2tyiw460housyx.us.auth0.com',
+           issuer: process.env.AUTH0_ISSUER,
       }),
+      GitHub({
+          clientId: process.env.AUTH_GITHUB_ID!,
+          clientSecret: process.env.AUTH_GITHUB_SECRET!,
+         }),
   ],
 });

@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Merxpress",
-  //title: { default: 'My Site', template: '%s | My Site' },
+  //title: "Merxpress",
+  title: { default: 'Merxpress', template: '%s | Merxpress' },
   description: "A modern e-commerce platform built with Next.js",
   keywords: [
     "e-commerce",
@@ -58,17 +58,18 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <CartProvider>
+      >  
         <Toaster richColors={true} />
-        <SideNav />       
-          <Header />       
+        <SideNav />
+          <CartProvider>       
+           <Header />
+          </CartProvider>       
           {children}
           <Mid />        
           {/* <FloatingChat /> */}
         <Footer />
-        </CartProvider>
      </body>
+     
     </html>
   );
 }

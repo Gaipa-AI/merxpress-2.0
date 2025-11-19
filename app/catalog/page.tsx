@@ -3,6 +3,7 @@ import { Catalog } from "@/components/Catalog";
 import { MerxLayout } from "@/components/merxDash";
 import Pagination from '@/app/ui/pagination'
 import { fetchInvoicesPages } from '@/lib/data';
+import { Header } from "@/components/Header";
 
 
 export default async function Sell(props: {
@@ -19,6 +20,7 @@ export default async function Sell(props: {
 
     return(
         <div> 
+            {/* <Header/> */}
             <NavList/>
             <MerxLayout>
             <Catalog query={query} currentPage={currentPage} />

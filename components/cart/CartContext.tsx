@@ -23,7 +23,7 @@ const initialCartState: CartState = {
 
 
 function cartReducer(state: CartState, action: CartAction): CartState {
-  //const savedCart = JSON.parse(localStorage.getItem("cart") || "{}") || initialCartState;
+  //const savedCart = JSON.parse(window.localStorage.getItem("cart") || "{}") || initialCartState;
 
   switch (action.type) {
     case "ADD_ITEM": {
@@ -64,12 +64,10 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       return action.payload;
     }
 
-    //default:
     default:
       return state;
   }
 }
-
 
 
 const CartContext = createContext<{
@@ -90,11 +88,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (savedCart) {
         dispatch({ type: 'LOAD_FROM_STORAGE', payload: JSON.parse(savedCart) });
       }
+      
     }, []);
 
     useEffect(() => {
       ClientStorage.setItem('cart', JSON.stringify(state));
     }, [state]);
+    // useEffect(() => {
+    //   if (typeof window !== 'undefined') {
+    //     const savedCart = JSON.parse(localStorage.getItem('cart') || '{}') || initialCartState;
+    //     dispatch({ type: 'LOAD_FROM_STORAGE', payload: savedCart });
+    //   }
+    // }, []);
+    // useEffect(() => {
+      
+    //   localStorage.setItem("cart", JSON.stringify(state));
+      
     // }, [state]);
     
 

@@ -6,6 +6,7 @@ import {CartPage} from '@/components/cart/Cart';
 import { MerxLayout } from '@/components/merxDash';
 //import UserProfile from '@/components/UserProfile';
 import Products from '@/components/Shelf';
+import { Header } from '@/components/Header';
  
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -24,6 +25,7 @@ export default async function Page(props: {
  
   return (
     <CartProvider>
+    {/* <Header /> */}
     <div className="w-full app-container mx-auto">
     
       

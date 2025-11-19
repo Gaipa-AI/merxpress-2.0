@@ -1,7 +1,6 @@
 'use client'
 
 import { useCart } from "./CartContext";
-import Image from "next/image";
 import { toast } from "sonner";
 import { Trash2 } from "lucide-react";
 import {
@@ -47,7 +46,6 @@ export const CartPage = () => {
           {state.items.map(item => (
             <div key={item.id} className="bg-white p-4 my-4 rounded-lg shadow-md justify-between items-center text-slate-700 w-1/4 mx-2">
               <img src={item.imageUrl} alt={item.title} className="w-full min-w-62 object-contain mb-4" />
-              {/* <Image src={`/${item.imageUrl}` } alt={item.title} height={250} width={200} className="w-full object-contain mb-4" /> */}
               <p className="gap-2.5 self-start text-xl whitespace-nowrap ">${item.price} x {item.quantity}</p>
               <p className="text-lg mb-2 text-slate-900">{item.title}</p>
               
