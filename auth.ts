@@ -3,15 +3,14 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GoogleProvider from "next-auth/providers/google";
 import Auth0Provider from "next-auth/providers/auth0";
-import { authConfig } from './auth.config';
+import { authConfig } from '@/auth.config';
 import { z } from 'zod';
 import type { User } from '@/db/definitions';
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
 import GitHub from 'next-auth/providers/github';
 
-//const sql = neon(`${process.env.DATABASE_URL}`);
- 
+
 const sql = postgres(process.env.DATABASE_URL!);
  
 export async function getUser(email: string): Promise<User | undefined> {
@@ -44,7 +43,7 @@ export async function createUser(name: string, email: string, password: string):
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const result = await sql<User[]>`
-      INSERT INTO users (username, email, password)
+      INSERT INTO users (name, email, password)
       VALUES (${name}, ${email}, ${hashedPassword})
       RETURNING *;
     `;
@@ -54,7 +53,8 @@ export async function createUser(name: string, email: string, password: string):
     throw new Error('Failed to create user.');
   }
 }
- 
+
+
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
@@ -94,14 +94,15 @@ export const { auth, signIn, signOut } = NextAuth({
                    role: userRole,
                  };
                },
-               clientId: process.env.GOOGLE_ID,
-               clientSecret: process.env.GOOGLE_SECRET,
+               clientId: process.env.GOOGLE_ID!,
+               clientSecret: process.env.GOOGLE_SECRET!,
+               redirectProxyUrl: process.env.GOOGLE_REDIRECT_URL,
              }),
       Auth0Provider({
            
-           clientId: process.env.AUTH0_CLIENT_ID,
-           clientSecret: process.env.AUTH0_CLIENT_SECRET,
-           issuer: process.env.AUTH0_ISSUER,
+           clientId: process.env.AUTH0_CLIENT_ID!,
+           clientSecret: process.env.AUTH0_CLIENT_SECRET!,
+           issuer: process.env.AUTH0_ISSUER!,
       }),
       GitHub({
           clientId: process.env.AUTH_GITHUB_ID!,
@@ -109,3 +110,18 @@ export const { auth, signIn, signOut } = NextAuth({
          }),
   ],
 });
+
+
+
+//export const { handlers: { GET, POST }, auth } = NextAuth({...})
+// import { object, string } from "zod"
+ 
+// export const signInSchema = object({
+//   email: string({ required_error: "Email is required" })
+//     .min(1, "Email is required")
+//     .email("Invalid email"),
+//   password: string({ required_error: "Password is required" })
+//     .min(1, "Password is required")
+//     .min(8, "Password must be more than 8 characters")
+//     .max(32, "Password must be less than 32 characters"),
+// })

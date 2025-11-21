@@ -1,6 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
-import GitHub from "next-auth/providers/github";
-import Google from 'next-auth/providers/google';
+//import Google from "next-auth/providers/google"
 
 export const authConfig = {
   pages: {
@@ -20,6 +19,7 @@ export const authConfig = {
       if (isOnCart && !isLoggedIn) {
         return false; // Redirects to /login
       }
+      // 2️⃣ Allow access to /marketplace for all users
       if (isOnMarketplace && !isLoggedIn) {
         return true; // Allow access to /marketplace
       }
@@ -42,7 +42,9 @@ export const authConfig = {
       return token;
     },
     async session({ session, token }) {
+      
       if (token && session.user) {
+        
         session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
@@ -50,17 +52,31 @@ export const authConfig = {
       }
       return session;
     },
+     
+  //   async jwt({ token, user, account }) {
+  //   if (user) token.user = user;
+  //   if (account?.access_token) {
+  //     token.accessToken = account.access_token;
+  //   }
+  //   if (account?.provider === "google") {
+  // // do not redirect manually
+  //   token.provider = "google";}
+  //   return token;
+  // },
+
+  // async session({ session, token }) {
+  //   if (token && session.user) {
+  //     session.user.id = (token.user as any).id;
+  //     session.user.name = (token.user as any).name;
+  //     session.user.email = (token.user as any).email;
+  //   }
+    
+  //   return session;
+  // }
+    
   },
   providers: [
-  //  GitHub({
-  //   clientId: process.env.AUTH_GITHUB_ID!,
-  //   clientSecret: process.env.AUTH_GITHUB_SECRET!,
-  //  }),
-  //   Google({
-  //     clientId: process.env.GOOGLE_ID!,
-  //     clientSecret: process.env.GOOGLE_SECRET!,
-  //   }),
-
+   
   ], // Add providers with an empty array for now
   
   secret: process.env.NEXTAUTH_SECRET,

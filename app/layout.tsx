@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import SideNav from "@/components/sidebar/SideNav";
 import { CartProvider } from "@/components/cart/CartContext";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -60,7 +61,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >  
         <Toaster richColors={true} />
+        
         <SideNav />
+       
           <CartProvider>       
            <Header />
           </CartProvider>       

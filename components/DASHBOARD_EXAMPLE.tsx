@@ -57,14 +57,14 @@ export default async function DashboardPage() {
         </div>
 
         {/* Session Debug Info (remove in production) */}
-        {/* <details className="bg-white rounded-lg shadow-lg p-8">
+        <details className="bg-white rounded-lg shadow-lg p-8">
           <summary className="cursor-pointer font-semibold text-gray-700">
             Session Debug Info
           </summary>
           <pre className="mt-4 bg-gray-100 p-4 rounded text-xs overflow-auto max-h-48">
             {JSON.stringify(session, null, 2)}
           </pre>
-        </details> */}
+        </details>
       </div>
     </div>
   );

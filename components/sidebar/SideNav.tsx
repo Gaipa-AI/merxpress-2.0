@@ -1,9 +1,9 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { Menu, X, Home, Store, Package, LogIn, LogOut, User } from 'lucide-react'
 import Link from 'next/link'
-//import { useSession } from '@/hooks/useSession';
+import { useSession } from '@/hooks/useSession';
+
 
 type AccountType = 'Buyer' | 'Seller'
 
@@ -15,8 +15,16 @@ export interface SideNavProps {
 export default function SideNav({ initialOpen = false }: SideNavProps) {
 	const [open, setOpen] = useState(initialOpen)
 	const [accountType, setAccountType] = useState<AccountType>('Buyer')
-	//const { session, loading } = useSession();
-    //console.log('Session in SideNav:', session?.user);
+	const [sess, setSess] = useState<any>(null);
+	const { session, loading } = useSession();
+    
+    //console.log(session?.user?.email,"session");
+
+    useEffect(() => {
+	  //setSess(session?.user?.email || "not logged in");
+	  setSess(session?.user?.name || "not logged in");
+	}, [session]);
+
 	useEffect(() => {
 		const saved = typeof window !== 'undefined' ? window.localStorage.getItem('merx-account-type') : null
 		if (saved === 'Buyer' || saved === 'Seller') setAccountType(saved)
@@ -36,7 +44,7 @@ export default function SideNav({ initialOpen = false }: SideNavProps) {
 			>
 				{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
 			</button>
-
+            
 			{/* Drawer */}
 			<div
 				className={`transition-transform ${open ? 'translate-x-0' : '-translate-x-full'} fixed top-0 left-0 h-screen w-72 bg-[#0b1a2b] text-gray-100 shadow-2xl border-r border-gray-700/30`}
@@ -59,6 +67,7 @@ export default function SideNav({ initialOpen = false }: SideNavProps) {
 					<SideNavLink href="/marketplace" icon={<Store className="h-5 w-5" />}>Marketplace</SideNavLink>
 					<SideNavLink href="/products" icon={<Package className="h-5 w-5" />}>Products</SideNavLink>
 				</nav>
+				
 
 				<div className="px-4 py-3 border-t border-gray-700/30">
 					<p className="text-xs uppercase tracking-wide text-gray-400 mb-2">Account type</p>
@@ -79,10 +88,8 @@ export default function SideNav({ initialOpen = false }: SideNavProps) {
 				</div>
 
 				<div className="px-3 py-4 border-t border-gray-700/30">
-					<p className="text-xs uppercase tracking-wide text-gray-400 mb-2">Stack account</p>
-					{/*
-						We route to Stack's built-in handler pages. These work with the StackProvider already mounted in app/layout.
-					*/}
+					<p className="text-xs uppercase tracking-wide text-gray-400 mb-2">Stack account {sess}</p>
+					
 					<SideNavLink href="/login" icon={<LogIn className="h-5 w-5" />}>Login</SideNavLink>
 					<SideNavLink href="/dashboard" icon={<User className="h-5 w-5" />}>Account</SideNavLink>
 					<SideNavLink href="/" icon={<LogOut className="h-5 w-5" />}>Logout</SideNavLink>
