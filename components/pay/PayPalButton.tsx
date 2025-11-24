@@ -3,8 +3,8 @@
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { useCart } from '../cart/CartContext';
 
-const CLIENT_ID = process.env.PAYPAL_CLIENT_ID as string;
-console.log('PayPal Client ID:', CLIENT_ID);
+const CLIENT_ID = process.env.PAYPAL_CLIENT_ID ||'ARv1YYhPiyyEWw1RyfKekJpJYNTEH6YNeobn2lA4uvAQBBeE30O-cRxPHJNkgJBSutIN684AKFB9TA_n';
+//console.log('PayPal Client ID:', CLIENT_ID);
 
 export default function PayPalButton() {
   // Replace 'YOUR_CLIENT_ID' with your actual PayPal client ID
@@ -16,7 +16,7 @@ export default function PayPalButton() {
   //console.log('Total price for PayPal:', price);
 
   return (
-    <PayPalScriptProvider options={{ "clientId":CLIENT_ID, currency: "USD"}}>
+    <PayPalScriptProvider options={{ "clientId":`${CLIENT_ID}`, currency: "USD"}}>
       <PayPalButtons
         style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', borderRadius: 10 }}
         
