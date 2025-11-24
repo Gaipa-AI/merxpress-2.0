@@ -24,3 +24,13 @@ Verify that the redirect URIs listed are correct and complete (including http://
 Double-check the URL your application generates to start the Google login process. It should explicitly contain the new client_id as a query parameter. 
 If you are using a third-party library or framework for OAuth (like Passport.js, Firebase, etc.), ensure that you've updated the configuration within that library's settings to use the new credentials. 
 If you've tried these steps and are still running into issues, want me to help you check your current OAuth login URL structure?
+
+
+{
+    "scope": "https://uri.paypal.com/services/invoicing https://uri.paypal.com/services/checkout/one-click-with-merchant-issued-token https://uri.paypal.com/services/payments/futurepayments https://uri.paypal.com/services/disputes/read-buyer https://uri.paypal.com/services/payments/realtimepayment https://uri.paypal.com/services/subscriptions/confirm-payment https://uri.paypal.com/services/payments/client-payments-eligibility https://uri.paypal.com/services/identity/activities https://api.paypal.com/v1/vault/credit-card https://api.paypal.com/v1/payments/.* https://uri.paypal.com/services/reporting/search/read https://api.paypal.com/v1/payments/refund https://uri.paypal.com/services/applications/webhooks https://uri.paypal.com/services/pricing/exchange-currency/read https://uri.paypal.com/services/credit/client-offer-presentment/read https://uri.paypal.com/services/paypalhere https://uri.paypal.com/services/disputes/update-seller openid https://uri.paypal.com/services/payments/payment/authcapture https://uri.paypal.com/services/disputes/read-seller https://uri.paypal.com/services/payments/orders/client_sdk_orders_api https://uri.paypal.com/services/payments/refund https://uri.paypal.com/services/pricing/quote-exchange-rates/read https://uri.paypal.com/services/billing-agreements https://uri.paypal.com/services/checkout/payment-resources https://uri.paypal.com/payments/payouts https://api.paypal.com/v1/vault/credit-card/.* https://uri.paypal.com/services/subscriptions https://api.paypal.com/v1/payments/sale/.*/refund",
+    "access_token": "A21AAL9eGvmusAo5XCVMCkzcM8ev22MSPaH9CoEm9l0xd8QDEpQJQR1U_yaQzr3QtL-j_5yNnnQfYmdpCLT8KXGnjY0xkMmZg",
+    "token_type": "Bearer",
+    "app_id": "APP-80W284485P519543T",
+    "expires_in": 32400,
+    "nonce": "2025-11-24T09:20:34ZGmCUhCRb7WW4aZY3lbyVw36_OlGrNhpZ4bQXmjHGssk"
+}

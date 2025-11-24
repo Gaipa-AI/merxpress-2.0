@@ -12,6 +12,7 @@ import {
 
 //import { setOrder } from "@/db/actions";
 import PayPalButton from "../pay/PayPalButton";
+//import PayBtn from "../pay/PaypalDev";
 //import { Button } from "../ui/button";
 //import PayPal from "../pay/PayPal";
 //import { Items } from "../Items";
@@ -70,8 +71,8 @@ export const CartPage = () => {
             CheckOut
           </button>
           <PayPalButton/>
-          <div className="m-2 "/>
-         
+          <div className="m-2"/>
+          {/* <PayBtn/> */}
           {/* <PayPal/> */}
           </div>
         </div>

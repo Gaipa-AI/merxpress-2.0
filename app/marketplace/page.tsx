@@ -11,7 +11,7 @@ import { CardsSkeleton } from "../ui/skeletons";
 import SideNav from "@/components/SideNav";
 //import { NavigationMenuDemo } from "@/components/NavMenu";
 import DashboardPage from "@/components/DASHBOARD_EXAMPLE";
-import {CartPage} from "@/components/cart/Cart";
+//import {CartPage} from "@/components/cart/Cart";
 //import { CartProvider } from "@/components/cart/CartContext";
 
 
@@ -40,9 +40,9 @@ export default async function Market(props: {
                 </Suspense> 
                 <SideNav/>
                 <DashboardPage/>
-                <div className="hidden">
+                {/* <div className="hidden">
                  <CartPage/> 
-                </div>
+                </div> */}
                 <ChatWidget/>
             </MerxLayout>
            

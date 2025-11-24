@@ -31,6 +31,7 @@ function PayPal() {
             layout: "vertical",
             color: "gold",
             label: "paypal",
+            disableMaxWidth: true,
           }}
           createOrder={async () => {
             try {
@@ -44,9 +45,9 @@ function PayPal() {
                 body: JSON.stringify({
                   cart: [
                     {
-                      id: "YOUR_PRODUCT_ID",
+                      id: '1',//"YOUR_PRODUCT_ID",
                       //id: 1, // Replace with your product ID
-                      quantity: "YOUR_PRODUCT_QUANTITY",
+                      quantity: '1',//"YOUR_PRODUCT_QUANTITY"
                     },
                   ],
                 }),

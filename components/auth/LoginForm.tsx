@@ -151,6 +151,7 @@ export function LoginForm({
             <img
               src="images/micah-login.jpg"
               alt="Image"
+              loading="lazy"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>
